@@ -104,6 +104,15 @@
 //    }
 //}
 //
+//char int_to_char(int number){
+//    if(number>=0&&number<=9){
+//        return (char)('0'+number);
+//    }
+//    else{
+//        return (char)('A'+number-10);
+//    }
+//}
+//
 //int main(){
 //    stack<int> change(10);
 //    int number,n;
@@ -111,13 +120,24 @@
 //    cin>>number;
 //    cout<<"please input the Positional notation:";
 //    cin>>n;
-//    while(number!=0){
-//        change.push(number%n);
-//        number/=n;
+//    if((n>=2&&n<=9)||n==16){
+//        while(number!=0){
+//            change.push(number%n);
+//            number/=n;
+//        }
+//        int element;
+//        while(change.pop(element)){
+//            if(n==16){
+//                cout<<int_to_char(element);
+//            }
+//            else{
+//                cout<<element;
+//            }
+//        }
 //    }
-//    int element;
-//    while(change.pop(element)){
-//        cout<<element;
+//    else{
+//        cout<<"please input the Positional notation!";
 //    }
+//
 //    return 0;
 //}

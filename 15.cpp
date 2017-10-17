@@ -5,6 +5,7 @@
 //template<class T>
 //class queue {
 //private:
+//    bool tag;
 //    int max_size;
 //    int front;
 //    int rear;
@@ -14,17 +15,18 @@
 //
 //    ~queue();
 //
-//    void clear();                  //Çå¿Õ¶ÓÁĞ
-//    bool en_queue(T item);   //¶ÓÁĞµÄÎ²²¿¼ÓÈëÔªËØ
-//    bool de_queue(T &item);        //È¡³ö¶ÓÁĞµÄµÚÒ»¸öÔªËØ
-//    bool is_empty();               //ÅĞ¶Ï¶ÓÁĞÊÇ·ñÎª¿Õ
-//    bool is_full();                //ÅĞ¶Ï¶ÓÁĞÊÇ·ñÒÑÂú
-//    bool get_front(T &item);       //¶ÁÈ¡¶ÓÍ·ÔªËØµ«²»É¾³ı
+//    void clear();                  //æ¸…ç©ºé˜Ÿåˆ—
+//    bool en_queue(T item);         //é˜Ÿåˆ—çš„å°¾éƒ¨åŠ å…¥å…ƒç´ 
+//    bool de_queue(T &item);        //å–å‡ºé˜Ÿåˆ—çš„ç¬¬ä¸€ä¸ªå…ƒç´ 
+//    bool is_empty();               //åˆ¤æ–­é˜Ÿåˆ—æ˜¯å¦ä¸ºç©º
+//    bool is_full();                //åˆ¤æ–­é˜Ÿåˆ—æ˜¯å¦å·²æ»¡
+//    bool get_front(T &item);       //è¯»å–é˜Ÿå¤´å…ƒç´ ä½†ä¸åˆ é™¤
 //};
 //
 //template <class T>
 //queue<T>::queue(int size) {
-//    max_size = size+1;
+//    tag = false;
+//    max_size = size;
 //    front = 0;
 //    rear = 0;
 //    q = new T[max_size+1];
@@ -37,6 +39,7 @@
 //
 //template <class T>
 //void queue<T>::clear() {
+//    tag = false;
 //    front = 0;
 //    rear = 0;
 //}
@@ -49,6 +52,7 @@
 //    else{
 //        q[rear] = item;
 //        rear = (rear + 1) % max_size;
+//        tag = 1;
 //        return true;
 //    }
 //}
@@ -61,18 +65,26 @@
 //    else{
 //        item = q[front];
 //        front = (front + 1) % max_size;
+//        if(front == rear){
+//            tag = 0;
+//        }
 //        return true;
 //    }
 //}
 //
 //template <class T>
 //bool queue<T>::is_empty() {
-//    return front==rear;
+//    return tag==0;
 //}
 //
 //template <class T>
 //bool queue<T>::is_full() {
-//    return (rear + 1) % max_size == front;
+//    if(tag==0){
+//        return false;
+//    }
+//    else{
+//        return front == rear;
+//    }
 //}
 //
 //template <class T>
@@ -87,15 +99,22 @@
 //}
 //
 //int main(){
-//    queue<int> t(10);
-//    for(int i =0; i <10;++i){
-//        cout<<t.en_queue(i)<<endl;
+//    queue<int> queue1(10);
+//    for (int i = 0; i < 10; ++i) {
+//        queue1.en_queue(i);
 //    }
-//    int n;
-//    for (int j = 0; j < 10 ; ++j) {
-//        t.de_queue(n);
-//        cout<<n<<" ";
+//    for (int j = 0; j <10 ; ++j) {
+//        queue1.de_queue(j);
+//        cout<<j<<" ";
 //    }
+//    for (int i = 0; i < 1; ++i) {
+//        queue1.en_queue(i);
+//    }
+//    for (int j = 0; j <1 ; ++j) {
+//        queue1.de_queue(j);
+//        cout<<j<<" ";
+//    }
+//    int i;
+//    cout<<queue1.de_queue(i);
 //    return 0;
 //}
-//
