@@ -85,6 +85,7 @@
 //    void in_order(binary_tree_node<T> *temp);//中序深度优先遍历 递归
 //    void post_order();//后序深度优先遍历
 //    void post_order(binary_tree_node<T> *temp);//后序深度优先遍历 递归
+//    bool is_full();
 //};
 //
 //template <class T>
@@ -335,22 +336,56 @@
 //    }
 //}
 //
+//template <class T>
+//bool binary_tree<T>::is_full() {
+//    if(!is_empty()){
+//        queue<binary_tree_node<T>*> binary_tree_node_queue;
+//        binary_tree_node_queue.en_queue(root);
+//        binary_tree_node<T> *temp,* n = nullptr;
+//        binary_tree_node_queue.en_queue(n);
+//        int num = 1;
+//        int i = 0;
+//        bool flag = false;
+//        while(binary_tree_node_queue.get_size()!=0){
+//            binary_tree_node_queue.de_queue(temp);
+//            if(temp == nullptr){
+//                if(i!=num){
+//                    return binary_tree_node_queue.get_size()==0;
+//                }
+//                else{
+//                    num*=2;
+//                    i=0;
+//                }
+//            }
+//            else{
+//                if(!temp->get_left_children()&&!temp->get_right_children()){
+//                    if(flag == true){
+//                        return false;
+//                    }
+//                }
+//                else{
+//                    if(temp->get_left_children()&&!flag){
+//                        binary_tree_node_queue.en_queue(temp->get_left_children());
+//                    }
+//                    else{
+//                        return false;
+//                    }
+//                    if(temp->get_right_children()){
+//                        binary_tree_node_queue.en_queue(temp->get_right_children());
+//                    }
+//                    else{
+//                        flag = true;
+//                    }
+//                }
+//                ++i;
+//            }
+//        }
+//    }
+//}
+//
 //int main(){
 //    binary_tree<char> tree;
 //    tree.create_binary();
-//    cout<<"广度优先遍历：";
-//    tree.breadth_first_order();
-//    cout<<"前序深度优先遍历：";
-//    tree.pre_order();
-//    cout<<"前序深度优先遍历（递归）：";
-//    tree.pre_order(tree.get_root());
-//    cout<<"\n中序深度优先遍历：";
-//    tree.in_order();
-//    cout<<"中序深度优先遍历（递归）：";
-//    tree.in_order(tree.get_root());
-//    cout<<"\n后序深度优先遍历：";
-//    tree.post_order();
-//    cout<<"后序深度优先遍历（递归）";
-//    tree.post_order(tree.get_root());
+//    cout<<tree.is_full();
 //    return 0;
 //}

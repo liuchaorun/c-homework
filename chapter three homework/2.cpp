@@ -73,7 +73,7 @@
 //    binary_tree();
 //    ~binary_tree();
 //    bool is_empty();
-//    binary_tree_node<T>* get_root();
+//    binary_tree_node<T>*& get_root();
 //    void create_binary();
 //    void create_binary_tree_by_pre_order(binary_tree_node<T> *&temp);//根据前序优先遍历算法创建二叉树
 //    void create_binary_tree_by_pre_order_and_in_order(binary_tree_node<T> *&temp,string pre_order_string,string in_order_string);//根据前序和中序优先遍历算法创建二叉树
@@ -85,6 +85,14 @@
 //    void in_order(binary_tree_node<T> *temp);//中序深度优先遍历 递归
 //    void post_order();//后序深度优先遍历
 //    void post_order(binary_tree_node<T> *temp);//后序深度优先遍历 递归
+//    int get_one(binary_tree_node<T>*& temp);
+//    int get_two(binary_tree_node<T>*& temp);
+//    int get_zero(binary_tree_node<T>*& temp);
+//    int get_tree_height(binary_tree_node<T>*& temp);
+//    void get_tree_wide(binary_tree_node<T>*& temp,int f,int* wide);
+//    T get_max_one(binary_tree_node<T>*& temp);
+//    void change_children(binary_tree_node<T>*& temp);
+//    void delete_all_leaves(binary_tree_node<T>*& temp);
 //};
 //
 //template <class T>
@@ -117,7 +125,7 @@
 //}
 //
 //template <class T>
-//binary_tree_node<T>* binary_tree<T>::get_root() {
+//binary_tree_node<T>*& binary_tree<T>::get_root() {
 //    return root;
 //}
 //
@@ -137,6 +145,8 @@
 //            cin>>pre_order_string;
 //            cout<<"请输入中序序列：";
 //            cin>>in_order_string;
+////            pre_order_string = "ABDFGCEH";
+////            in_order_string = "BFDGACEH";
 //            create_binary_tree_by_pre_order_and_in_order(root,pre_order_string,in_order_string);
 //            break;
 //        case 3:
@@ -335,6 +345,123 @@
 //    }
 //}
 //
+//template <class T>
+//int binary_tree<T>::get_one(binary_tree_node<T> *&temp) {
+//    if (temp->get_left_children() == nullptr && temp->get_right_children() == nullptr) {
+//        return 0;
+//    } else if (temp->get_left_children() == nullptr && temp->get_right_children() != nullptr) {
+//        return get_one(temp->get_right_children()) + 1;
+//    } else if (temp->get_left_children() != nullptr && temp->get_right_children() == nullptr) {
+//        return get_one(temp->get_left_children()) + 1;
+//    } else {
+//        return get_one(temp->get_left_children()) + get_one(temp->get_right_children());
+//    }
+//}
+//
+//template <class T>
+//int binary_tree<T>::get_two(binary_tree_node<T> *&temp) {
+//    if(temp->get_left_children()== nullptr&&temp->get_right_children()== nullptr){
+//        return 0;
+//    }
+//    else if(temp->get_left_children()== nullptr&&temp->get_right_children()!= nullptr){
+//        return get_two(temp->get_right_children());
+//    }
+//    else if(temp->get_left_children()!= nullptr && temp->get_right_children() == nullptr){
+//        return get_two(temp->get_left_children());
+//    }
+//    else{
+//        return get_two(temp->get_left_children()) + get_two(temp->get_right_children()) + 1;
+//    }
+//}
+//
+//template <class T>
+//int binary_tree<T>::get_zero(binary_tree_node<T> *&temp) {
+//    if(temp->get_left_children()== nullptr&&temp->get_right_children()== nullptr){
+//        return 1;
+//    }
+//    else if(temp->get_left_children()== nullptr&&temp->get_right_children()!= nullptr){
+//        return get_zero(temp->get_right_children());
+//    }
+//    else if(temp->get_left_children()!= nullptr && temp->get_right_children() == nullptr){
+//        return get_zero(temp->get_left_children());
+//    }
+//    else{
+//        return get_zero(temp->get_left_children()) + get_zero(temp->get_right_children());
+//    }
+//}
+//
+//template <class T>
+//int binary_tree<T>::get_tree_height(binary_tree_node<T> *&temp) {
+//    if(temp->get_left_children()== nullptr&&temp->get_right_children()== nullptr){
+//        return 1;
+//    }
+//    else if(temp->get_left_children()== nullptr&&temp->get_right_children()!= nullptr){
+//        return get_tree_height(temp->get_right_children()) + 1;
+//    }
+//    else if(temp->get_left_children()!= nullptr && temp->get_right_children() == nullptr){
+//        return get_tree_height(temp->get_left_children()) + 1;
+//    }
+//    else{
+//        int right = get_tree_height(temp->get_right_children());
+//        int left = get_tree_height(temp->get_left_children());
+//        return left>right?left + 1:right + 1;
+//    }
+//}
+//
+//template <class T>
+//void binary_tree<T>::get_tree_wide(binary_tree_node<T> *&temp,int f,int* wide) {
+//    if(temp != nullptr){
+//        wide[f] ++;
+//        get_tree_wide(temp->get_left_children(),f+1,wide);
+//        get_tree_wide(temp->get_right_children(),f+1,wide);
+//    }
+//}
+//
+//template <class T>
+//T binary_tree<T>::get_max_one(binary_tree_node<T> *&temp) {
+//    if (temp->get_left_children() == nullptr && temp->get_right_children() == nullptr) {
+//        return temp->get_item();
+//    } else if (temp->get_left_children() == nullptr && temp->get_right_children() != nullptr) {
+//        return get_max_one(temp->get_right_children());
+//    } else if (temp->get_left_children() != nullptr && temp->get_right_children() == nullptr) {
+//        return get_max_one(temp->get_left_children());
+//    } else {
+//        T left = get_max_one(temp->get_left_children());
+//        T right = get_max_one(temp->get_right_children());
+//        return left>right?left:right;
+//    }
+//}
+//
+//template <class T>
+//void binary_tree<T>::change_children(binary_tree_node<T> *&temp) {
+//    if(temp!= nullptr){
+//        binary_tree_node<T>* t = temp->get_left_children();
+//        temp->set_left_children(temp->get_right_children());
+//        temp->set_right_children(t);
+//        change_children(temp->get_left_children());
+//        change_children(temp->get_right_children());
+//    }
+//}
+//
+//template <class T>
+//void binary_tree<T>::delete_all_leaves(binary_tree_node<T> *&temp) {
+//    if(temp->get_left_children()== nullptr&&temp->get_right_children()== nullptr){
+//        binary_tree_node<T>*t = temp;
+//        temp = nullptr;
+//        delete t;
+//    }
+//    else if(temp->get_left_children()== nullptr&&temp->get_right_children()!= nullptr){
+//        delete_all_leaves(temp->get_right_children());
+//    }
+//    else if(temp->get_left_children()!= nullptr && temp->get_right_children() == nullptr){
+//        delete_all_leaves(temp->get_left_children());
+//    }
+//    else{
+//        delete_all_leaves(temp->get_left_children());
+//        delete_all_leaves(temp->get_right_children());
+//    }
+//}
+//
 //int main(){
 //    binary_tree<char> tree;
 //    tree.create_binary();
@@ -342,15 +469,41 @@
 //    tree.breadth_first_order();
 //    cout<<"前序深度优先遍历：";
 //    tree.pre_order();
-//    cout<<"前序深度优先遍历（递归）：";
-//    tree.pre_order(tree.get_root());
-//    cout<<"\n中序深度优先遍历：";
+//    cout<<"中序深度优先遍历：";
 //    tree.in_order();
-//    cout<<"中序深度优先遍历（递归）：";
-//    tree.in_order(tree.get_root());
-//    cout<<"\n后序深度优先遍历：";
+//    cout<<"后序深度优先遍历：";
 //    tree.post_order();
-//    cout<<"后序深度优先遍历（递归）";
-//    tree.post_order(tree.get_root());
+//    cout<<"二叉树中度为1的节点个数："<<tree.get_one(tree.get_root())<<endl;
+//    cout<<"二叉树中度为2的节点个数："<<tree.get_two(tree.get_root())<<endl;
+//    cout<<"二叉树中度为0的节点个数："<<tree.get_zero(tree.get_root())<<endl;
+//    cout<<"二叉树的深度："<<tree.get_tree_height(tree.get_root())<<endl;
+//    int wide[tree.get_tree_height(tree.get_root())] = {0};
+//    tree.get_tree_wide(tree.get_root(),0,wide);
+//    int max = wide[0];
+//    for(int i = 0; i< tree.get_tree_height(tree.get_root());++i){
+//        if(max<wide[i]){
+//            max = wide[i];
+//        }
+//    }
+//    cout<<"二叉树的宽度为："<<max<<endl;
+//    cout<<"二叉树中各结点中最大的元素的值为："<<tree.get_max_one(tree.get_root())<<endl;
+//    tree.change_children(tree.get_root());
+//    cout<<"广度优先遍历：";
+//    tree.breadth_first_order();
+//    cout<<"前序深度优先遍历：";
+//    tree.pre_order();
+//    cout<<"中序深度优先遍历：";
+//    tree.in_order();
+//    cout<<"后序深度优先遍历：";
+//    tree.post_order();
+//    tree.delete_all_leaves(tree.get_root());
+//    cout<<"广度优先遍历：";
+//    tree.breadth_first_order();
+//    cout<<"前序深度优先遍历：";
+//    tree.pre_order();
+//    cout<<"中序深度优先遍历：";
+//    tree.in_order();
+//    cout<<"后序深度优先遍历：";
+//    tree.post_order();
 //    return 0;
 //}

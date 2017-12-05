@@ -112,3 +112,87 @@
 //    system("pause");
 //    return 0;
 //}
+//#include <iostream>
+//using namespace std;
+//struct student{
+//    char name[20];
+//    float math;
+//};
+//int main(){
+//    int number,count;
+//    number = count =3;
+//    student a[10]={{"张三",90},{"李四",85},{"王五",73}};
+//    student b;
+//    for(int i=0;i<number;i++){
+//        cout<<"请输入学生姓名:";
+//        cin>>b.name;
+//        cout<<"请输入学生成绩:";
+//        cin>>b.math;
+//        for(int j=0;j<count;j++){
+//            if(b.math>a[j].math){
+//                int k=count-1;
+//                while(j<k){
+//                    a[k+1]=a[k];
+//                    k--;
+//                }
+//                a[j]=b;
+//                count++;
+//                break;
+//            }
+//            else{
+//                a[count] = b;
+//                count++;
+//                break;
+//            }
+//        }
+//    }
+//    for(int l=0;l<count;l++)
+//        cout<<a[l].name<<","<<a[l].math<<endl;
+//}
+//#include <iostream>
+//using namespace std;
+//struct student {
+//    char name[20];
+//    float math;
+//};
+//
+//bool name_equal(char n1[],char n2[]){
+//    int i = 0;
+//    while(n1[i]!='\0'||n2[i]!='\0'){
+//        if(n1[i]=='\0'||n2[i]=='\0'){
+//            return false;
+//        }
+//        else{
+//            if(n1[i]!=n2[i]){
+//                return false;
+//            }
+//        }
+//        ++i;
+//    }
+//    return true;
+//}
+//
+//int main() {
+//    student a[10]= { {"张三",90 },{ "李四",85 },{ "王五",73 } };
+//    int n ,count ,k = count;
+//    n = count = 3;
+//    student b;
+//    cout << "请输入想要删除的学生姓名：";
+//    cin >> b.name;
+//    for (int i = 0; i < n; i++) {
+//        if (name_equal(b.name,a[i].name)){
+//            k = i;
+//            break;
+//        }
+//    }
+//    while (k < count -1) {
+//        a[k] = a[k + 1];
+//        k++;
+//    }
+//    count--;
+//    for (int j = 0; j < count; j++)
+//        cout << a[j].name << "," << a[j].math << endl;
+//    //system("pause");
+//    return 0;
+//}
+
