@@ -95,9 +95,41 @@ void graph<T>::DFS() {
             DFSTraverse(mark,i);
         }
     }
+    cout<<endl;
+}
+
+template <class T>
+void graph<T>::BFSTraverse(vector<int> &m, int num) {
+    queue<int> vertexQueue;
+    int one;
+    m[num] = 1;
+    cout<<num<<" ";
+    vertexQueue.en_queue(num);
+    while(vertexQueue.get_size()!=0){
+        vertexQueue.de_queue(one);
+        for(int i = 0;i<vertexNum;i++){
+            if(m[i]==0&&matrix[one][i] != 0){
+                vertexQueue.en_queue(i);
+                m[i] = 1;
+                cout<<i<<" ";
+            }
+        }
+    }
 }
 
 template <class T>
 void graph<T>::BFS() {
-    queue<int> pointQueue;
+    for(int i=0;i<vertexNum;i++){
+        mark[i] = 0;
+    }
+    for(int i = 0;i<vertexNum;i++){
+        if(mark[i]==0){
+            BFSTraverse(mark,i);
+        }
+    }
+}
+
+template <class T>
+void graph<T>::Prim() {
+
 }

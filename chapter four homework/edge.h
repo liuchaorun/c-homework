@@ -5,6 +5,7 @@
 #ifndef INC_1_EDGE_H
 #define INC_1_EDGE_H
 
+#include "baseHeader.h"
 
 template<class T>
 class edge {
@@ -14,6 +15,8 @@ private:
     T weight;
 public:
     edge(int start, int end, T weight);
+
+    edge();
 
     ~edge();
 

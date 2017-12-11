@@ -6,7 +6,8 @@
 #define INC_1_GRAPH_H
 
 #include "baseHeader.h"
-#include "edge.h"
+#include "edge.cpp"
+#include "minHeap.cpp"
 #include "../chapter three homework/my_queue.h"
 
 template <class T>
@@ -17,6 +18,7 @@ private:
     int edgeNum;
     vector<int> mark;
     void DFSTraverse(vector<int>& m,int num);
+    void BFSTraverse(vector<int>& m,int num);
 public:
     explicit graph(int vertexNum);
     ~graph();

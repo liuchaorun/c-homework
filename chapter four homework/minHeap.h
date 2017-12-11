@@ -20,13 +20,13 @@ public:
 
     ~minHeap();
 
-    int chooseMax(int i);
+    int chooseMin(int i);
 
     void init();
 
-    bool insert(T in);
+    T minOne();
 
-    bool deleteOne(T key);
+    bool deleteMinOne();
 };
 
 #endif //INC_1_MINHEAP_H

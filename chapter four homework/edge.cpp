@@ -7,6 +7,9 @@
 template<class T>
 edge<T>::edge(int start, int end, T weight):start(start), end(end), weight(weight) {}
 
+template <class T>
+edge<T>::edge()=default;
+
 template<class T>
 edge<T>::~edge()= default;
 
@@ -53,4 +56,20 @@ bool edge<T>::operator<(edge &other) {
 template<class T>
 bool edge<T>::operator==(edge &other) {
     return weight == other.getWeight();
+}
+
+template <class T>
+ostream& operator<<(ostream& out,edge<T>& obj){
+    return out<<"这条边的起点是"<<obj.getStart()<<",终点是"<<obj.getEnd()<<"，权重为"<<obj.getWeight()<<endl;
+}
+
+template <class T>
+istream& operator>>(istream& in,edge<T>& obj){
+    int a,b;
+    T c;
+    in>>a>>b>>c;
+    obj.setStart(a);
+    obj.setEnd(b);
+    obj.setWeight(c);
+    return in;
 }
