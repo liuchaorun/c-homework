@@ -59,6 +59,16 @@ bool edge<T>::operator==(edge &other) {
 }
 
 template <class T>
+bool edge<T>::operator<=(edge &other) {
+    return weight<=other.getWeight();
+}
+
+template <class T>
+bool edge<T>::operator>=(edge &other) {
+    return weight>=other.getWeight();
+}
+
+template <class T>
 ostream& operator<<(ostream& out,edge<T>& obj){
     return out<<"这条边的起点是"<<obj.getStart()<<",终点是"<<obj.getEnd()<<"，权重为"<<obj.getWeight()<<endl;
 }

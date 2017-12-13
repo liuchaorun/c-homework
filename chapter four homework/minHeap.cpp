@@ -25,7 +25,7 @@ minHeap<T>::~minHeap() {
 
 template<class T>
 int minHeap<T>::chooseMin(int i) {
-    int temp = 0;
+    T temp;
     if (2 * i + 2 <= currentSize - 1) {
         if (heapArray[i] >= heapArray[2 * i + 1] && heapArray[2 * i + 1] <= heapArray[2 * i + 2]) {
             temp = heapArray[i];
@@ -98,4 +98,30 @@ bool minHeap<T>::deleteMinOne() {
     else{
         currentSize--;
     }
+}
+
+template <class T>
+bool minHeap<T>::insert(T in) {
+    if(currentSize == maxSize){
+        T* newArray = new T[maxSize*2];
+        for(int i = 0;i<maxSize;++i){
+            newArray[i] = heapArray[i];
+        }
+        maxSize *= 2;
+        delete[](heapArray);
+        heapArray = newArray;
+    }
+    heapArray[currentSize] = in;
+    currentSize++;
+    for(int i = currentSize-1;(i -1)/2>=0;i = (i -1)/2){
+        if(heapArray[i]<heapArray[(i-1)/2]){
+            T temp = heapArray[i];
+            heapArray[i] = heapArray[(i-1)/2];
+            heapArray[(i-1)/2] = temp;
+        }
+        else{
+            break;
+        }
+    }
+    return true;
 }

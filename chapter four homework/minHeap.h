@@ -27,6 +27,8 @@ public:
     T minOne();
 
     bool deleteMinOne();
+
+    bool insert(T in);
 };
 
 #endif //INC_1_MINHEAP_H

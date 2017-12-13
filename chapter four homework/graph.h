@@ -7,7 +7,9 @@
 
 #include "baseHeader.h"
 #include "edge.cpp"
+#include "minHeap.h"
 #include "minHeap.cpp"
+#include "UFset.h"
 #include "../chapter three homework/my_queue.h"
 
 template <class T>
@@ -33,7 +35,10 @@ public:
     T getOneEdgeWeight(edge<T>& oneEdge);
     void DFS();
     void BFS();
-    void Prim();
+    vector<edge<T>> Prim();
+    vector<edge<T>> kruskal();
+    vector<edge<T>> dijkstra();
+    vector<edge<T>> floyd();
 };
 
 

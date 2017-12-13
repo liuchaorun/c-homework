@@ -37,6 +37,10 @@ public:
     bool operator<(edge &other);
 
     bool operator==(edge &other);
+
+    bool operator>=(edge &other);
+
+    bool operator<=(edge &other);
 };
 
 
