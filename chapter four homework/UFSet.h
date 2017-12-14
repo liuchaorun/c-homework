@@ -6,14 +6,18 @@
 #define INC_1_UFSET_H
 
 
-class UFset {
+class UFSet {
 private:
     int n;
     int *root;
     int *next;
     int *length;
 public:
-
+    UFSet(int n = 10);
+    ~UFSet();
+    int Find(int i);
+    bool Union(int i, int j);
+    bool isOne();
 };
 
 

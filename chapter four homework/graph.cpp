@@ -158,13 +158,64 @@ vector<edge<T>> graph<T>::Prim() {
 }
 
 template<class T>
-vector<edge<T>> graph<T>::kruskal() {
-
+vector<edge<T>> graph<T>::Kruskal() {
+    for (int i = 0; i < vertexNum; i++) {
+        mark[i] = 0;
+    }
+    vector<edge<T>> MST;
+    UFSet vertexSet(vertexNum);
+    minHeap<edge<T>> edgeSet(10);
+    for (int j = 0; j < vertexNum; ++j) {
+        for (int i = j; i < vertexNum; ++i) {
+            if(matrix[j][i]!=0){
+                edge<T> one(j,i,matrix[j][i]);
+                edgeSet.insert(one);
+            }
+        }
+    }
+    edgeSet.init();
+    for (int k = 0; k < vertexNum - 1; ++k) {
+        while(vertexSet.Find(edgeSet.minOne().getStart()) == vertexSet.Find(edgeSet.minOne().getEnd())){
+            edgeSet.deleteMinOne();
+        }
+        MST.push_back(edgeSet.minOne());
+        vertexSet.Union(edgeSet.minOne().getStart(),edgeSet.minOne().getEnd());
+    }
+    return MST;
 }
 
 template<class T>
-vector<edge<T>> graph<T>::dijkstra() {
-
+void graph<T>::dijkstra(int i, vector<int> &dist, vector<int> &length) {
+    vector<int> front;
+    int min = 0;
+    for (int j = 0; j < vertexNum; ++j) {
+        mark[j] = 0;
+        dist.push_back(0);
+        length.push_back(0);
+        front.push_back(j);
+    }
+    mark[i] = 1;
+    for (int k = 0; k < vertexNum - 1; ++k) {
+        for (int j = 0; j < vertexNum; ++j) {
+            if(mark[j] == 0){
+                if((length[j] == 0||length[j] < length[i] + matrix[i][j])&&matrix[i][j]!=0){
+                    length[j] = length[i] + matrix[i][j];
+                    front[j] = i;
+                }
+                min = j;
+            }
+        }
+        for (int l = 0; l < vertexNum; ++l) {
+            if(mark[l] == 0 && length[l] != 0){
+                if(length[l]<length[min]){
+                    min = l;
+                }
+            }
+        }
+        dist[min] = i;
+        i = ( min == front[min] )?min:front[min];
+        mark[i] = 1;
+    }
 }
 
 template<class T>
