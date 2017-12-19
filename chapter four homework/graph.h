@@ -11,6 +11,7 @@
 #include "minHeap.cpp"
 #include "UFSet.h"
 #include "../chapter three homework/my_queue.h"
+#include "../chapter three homework/my_stack.h"
 
 template<class T>
 class graph {
@@ -57,7 +58,13 @@ public:
 
     void dijkstra(int i, vector<int>& dist,vector<int>& length);
 
-    vector<edge<T>> floyd();
+    void floyd(vector<vector<int>> &adj,vector<vector<int>> &path);
+
+    string floydPath(vector<vector<int>> &path, int start, int end);
+
+    string directedLoop();
+
+    vector<edge<T>> breakCircle();
 };
 
 
