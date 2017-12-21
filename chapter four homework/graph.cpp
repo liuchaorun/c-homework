@@ -204,7 +204,7 @@ void graph<T>::dijkstra(int i, vector<int> &dist, vector<int> &length) {
             }
         }
         for (int m = 0; m < vertexNum; ++m) {
-            if(mark[m] == 0){
+            if(mark[m] == 0&&length[m]){
                 min = m;
                 break;
             }
@@ -267,6 +267,7 @@ string graph<T>::floydPath(vector<vector<int>> &path, int start, int end) {
 
 template<class T>
 string graph<T>::directedLoop() {
+    vector<vector<int>> matrixTemp = matrix;
     for (int i = 0; i < vertexNum; i++) {
         mark[i] = 0;
     }
@@ -275,14 +276,14 @@ string graph<T>::directedLoop() {
     for (int i = 0; i < vertexNum; ++i) {
         int n = 0;
         for (int j = 0; j < vertexNum; ++j) {
-            if (matrix[j][i] != 0) {
+            if (matrixTemp[j][i] != 0) {
                 n++;
             }
         }
         p[i] = n;
     }
     for (int k = 0; k < vertexNum; ++k) {
-        int i, flag = 0;
+        int i = 0, flag = 0;
         for (i = 0; i < vertexNum; ++i) {
             if (mark[i] == 0 && p[i] == 0) {
                 flag = 1;
@@ -291,13 +292,14 @@ string graph<T>::directedLoop() {
         }
         if (flag) {
             flag = 0;
+            mark[i] = 1;
             for (int j = 0; j < vertexNum; ++j) {
-                matrix[i][j] = 0;
+                matrixTemp[i][j] = 0;
             }
             for (int l = 0; l < vertexNum; ++l) {
                 int n = 0;
                 for (int j = 0; j < vertexNum; ++j) {
-                    if (matrix[j][l] != 0) {
+                    if (matrixTemp[j][l] != 0) {
                         n++;
                     }
                 }
@@ -308,7 +310,7 @@ string graph<T>::directedLoop() {
     int m = 0,i = 0,flag = 0;
     for (m = 0; m < vertexNum; ++m) {
         for (i = 0; i < vertexNum; ++i) {
-            if(matrix[m][i] != 0){
+            if(matrixTemp[m][i] != 0){
                 flag = 1;
                 break;
             }
@@ -323,7 +325,7 @@ string graph<T>::directedLoop() {
         while(start != i){
             m = i;
             for (int j = 0; j < vertexNum; ++j) {
-                if(matrix[m][j]){
+                if(matrixTemp[m][j]){
                     i = j;
                     a += "->" + to_string(j);
                     break;
@@ -342,29 +344,70 @@ vector<edge<T>> graph<T>::breakCircle() {
     vector<edge<T>> MST;
     vector<edge<T>> edgeArray;
     vector<vector<int>> m = matrix;
+    vector<int> vertexClass(vertexNum,0);
     stack<int> vertexStack;
+    stack<int> rest;
     for (int i = 0; i < vertexNum; ++i) {
-        for (int i = 0; i < vertexNum; ++i) {
-            mark[i] = 0;
+        edgeArray.erase(edgeArray.begin(),edgeArray.end());
+        vertexStack.clear();
+        rest.clear();
+        for (int j = 0; j < vertexNum; ++j) {
+            mark[j] = 0;
+            vertexClass[j] = 0;
         }
         int flag = 0;
         vertexStack.push(i);
         mark[i] = 1;
         while(!vertexStack.is_empty()){
-            int j;
+            int j, c;
             vertexStack.pop(j);
-            for (int k = 0; k < vertexNum; ++k) {
-                if(m[j][k]){
+            rest.Top(c);
+            if(vertexClass[j] == c || rest.get_size() == 0){
+                rest.push(j);
+            }
+            else{
+                while(vertexClass[j] != c&&!rest.is_empty()){
+                    rest.pop(c);
+                    rest.Top(c);
+                }
+                rest.push(j);
+            }
+            mark[j] = 1;
+            for (int k = vertexNum - 1; k >= 0; --k) {
+                if(m[j][k]&&k!=j){
                     if(mark[k]==0){
                         vertexStack.push(k);
-                        mark[k] = 1;
+                        vertexClass[k] = j;
                     }
                     else{
-                        if(k==i){
-
+                        if(k==i&&!vertexStack.is_empty()&&rest.get_size()>2){
+                            flag = 1;
+                            break;
                         }
                     }
                 }
+            }
+            if(flag){
+                break;
+            }
+        }
+        if(flag){
+            int j = i,k = i;
+            while(!rest.is_empty()){
+                rest.pop(j);
+                edgeArray.push_back(edge<T>(j,k,m[j][k]));
+                k = j;
+            }
+            sort(edgeArray.begin(),edgeArray.end());
+            m[edgeArray[edgeArray.size()-1].getStart()][edgeArray[edgeArray.size()-1].getEnd()] = 0;
+            m[edgeArray[edgeArray.size()-1].getEnd()][edgeArray[edgeArray.size()-1].getStart()] = 0;
+            i--;
+        }
+    }
+    for (int l = 0; l < vertexNum; ++l) {
+        for (int i = l; i < vertexNum; ++i) {
+            if(m[l][i]){
+                MST.push_back(edge<T>(l,i,m[l][i]));
             }
         }
     }

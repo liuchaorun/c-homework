@@ -95,6 +95,7 @@ bool stack<T>::clear() {
         stack_top = stack_top->get_next();
         delete temp;
     }
+    max_length = 0;
     return true;
 }
 
@@ -108,6 +109,7 @@ bool stack<T>::push(T element) {
         temp->set_next(stack_top);
         stack_top = temp;
     }
+    max_length++;
     return true;
 }
 
@@ -117,7 +119,7 @@ bool stack<T>::Top(T &element) {
         return false;
     }
     else{
-        element = *stack_top->get_item();
+        element = stack_top->get_item();
         return true;
     }
 }
@@ -128,6 +130,7 @@ bool stack<T>::pop(T &element) {
         return false;
     }
     else{
+        max_length--;
         element = stack_top->get_item();
         link_node<T> *temp = stack_top;
         stack_top = stack_top->get_next();
